@@ -1,0 +1,17 @@
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+chat_template = ChatPromptTemplate([
+    ('System', 'You are a helpful customer support agent'),
+    MessagesPlaceholder(variable_name='chat_history'),
+    ('human','{query}')
+])
+
+chat_history = []
+
+#load chat history from file
+with open('chat_history.txt') as f:
+    chat_history.extend(f.readlines())
+
+print(chat_history)
+
+
+chat_template.invoke({'chat_history': chat_history, 'query': "How can I reset my password?"})
